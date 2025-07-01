@@ -1,7 +1,18 @@
 ﻿@page
-@model IndexModel
+@model AgenciaTurismo.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
+}
+
+<h1>Bem-vindo à Agência de Turismo</h1>
+
+<form method="post">
+    <button type="submit" asp-page-handler="CriarReserva" class="btn btn-primary">Criar Reserva Fictícia</button>
+</form>
+
+@if (Model.Mensagem != null)
+{
+    <div class="alert alert-success mt-3">@Model.Mensagem</div>
 }
 
 <div class="text-center">
