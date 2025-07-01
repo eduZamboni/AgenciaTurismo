@@ -1,0 +1,24 @@
+@page
+@model AgenciaTurismo.Pages.PacoteEventoModel
+@{
+    ViewData["Title"] = "Evento de Capacidade";
+}
+
+<h2>Simular Evento de Capacidade</h2>
+
+<form method="post">
+    <div>
+        <label>Capacidade Máxima:</label>
+        <input asp-for="CapacidadeMaxima" type="number" min="1" required />
+    </div>
+    <div>
+        <label>Reservas para adicionar:</label>
+        <input asp-for="ReservasParaAdicionar" type="number" min="1" required />
+    </div>
+    <button type="submit">Adicionar Reservas</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Log))
+{
+    <div class="alert alert-info mt-3">@Model.Log</div>
+}
