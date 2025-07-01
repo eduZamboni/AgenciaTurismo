@@ -1,0 +1,26 @@
+@page
+@model AgenciaTurismo.Pages.ReservaTotalModel
+@{
+    ViewData["Title"] = "Cálculo Total da Reserva";
+}
+
+<h2>Cálculo do Total da Reserva</h2>
+
+<form method="post">
+    <div>
+        <label for="NumeroDiarias">Número de diárias:</label>
+        <input asp-for="NumeroDiarias" type="number" min="1" required />
+    </div>
+    <div>
+        <label for="ValorDiaria">Valor da diária:</label>
+        <input asp-for="ValorDiaria" type="number" step="0.01" min="0.01" required />
+    </div>
+    <button type="submit">Calcular Total</button>
+</form>
+
+@if (Model.Total.HasValue)
+{
+    <div>
+        <p>Total da reserva: <strong>@Model.Total.Value.ToString("C")</strong></p>
+    </div>
+}
