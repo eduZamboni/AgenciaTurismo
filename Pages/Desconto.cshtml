@@ -1,0 +1,23 @@
+@page
+@model AgenciaTurismo.Pages.DescontoModel
+@{
+    ViewData["Title"] = "Cálculo de Desconto";
+}
+
+<h2>Cálculo de Desconto (10%)</h2>
+
+<form method="post">
+    <div>
+        <label for="valor">Informe o valor:</label>
+        <input asp-for="ValorOriginal" type="number" step="0.01" min="0" required />
+    </div>
+    <button type="submit">Calcular</button>
+</form>
+
+@if (Model.ValorComDesconto.HasValue)
+{
+    <div>
+        <p>Valor original: <strong>@Model.ValorOriginal?.ToString("C")</strong></p>
+        <p>Valor com desconto: <strong>@Model.ValorComDesconto?.ToString("C")</strong></p>
+    </div>
+}
