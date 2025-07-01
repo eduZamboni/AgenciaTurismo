@@ -1,0 +1,51 @@
+@page
+@model AgenciaTurismo.Pages.ViewNotesModel
+@{
+    ViewData["Title"] = "Notas";
+}
+
+<h2>Notas</h2>
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <div class="alert alert-info">@Model.Mensagem</div>
+}
+
+<form method="post" class="mb-4">
+    <div class="mb-3">
+        <label for="NoteTitle" class="form-label">Título da Nota</label>
+        <input asp-for="NoteTitle" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="NoteContent" class="form-label">Conteúdo</label>
+        <textarea asp-for="NoteContent" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Criar Nota</button>
+</form>
+
+<h4>Notas Salvas</h4>
+@if (Model.Notes.Any())
+{
+    <ul>
+        @foreach (var note in Model.Notes)
+        {
+            <li>
+                <a asp-page="/ViewNotes" asp-route-note="@note">@note</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Nenhuma nota encontrada.</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.SelectedNote))
+{
+    <h5>Conteúdo de: @Model.SelectedNote</h5>
+    <pre>@Model.SelectedNoteContent</pre>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
