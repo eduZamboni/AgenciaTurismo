@@ -1,0 +1,30 @@
+@page
+@model AgenciaTurismo.Pages.CreateClienteModel
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+
+<h2>Cadastrar Cliente</h2>
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <div class="alert alert-info">@Model.Mensagem</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Cliente.Nome" class="form-label"></label>
+        <input asp-for="Cliente.Nome" class="form-control" />
+        <span asp-validation-for="Cliente.Nome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Cliente.Email" class="form-label"></label>
+        <input asp-for="Cliente.Email" class="form-control" />
+        <span asp-validation-for="Cliente.Email" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
