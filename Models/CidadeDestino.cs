@@ -9,5 +9,9 @@ namespace AgenciaTurismo.Models
         [Required(ErrorMessage = "O nome da cidade é obrigatório.")]
         [MinLength(3, ErrorMessage = "O nome da cidade deve ter pelo menos 3 caracteres.")]
         public string Nome { get; set; }
+
+        [Required(ErrorMessage = "O país é obrigatório.")]
+        [MinLength(2, ErrorMessage = "O país deve ter pelo menos 2 caracteres.")]
+        public string Pais { get; set; }
     }
 } 

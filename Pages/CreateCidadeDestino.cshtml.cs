@@ -24,7 +24,7 @@ namespace AgenciaTurismo.Pages
                 return Page();
             }
 
-            Mensagem = $"Cidade '{CidadeDestino.Nome}' cadastrada com sucesso!";
+            Mensagem = $"Cidade '{CidadeDestino.Nome}' ({CidadeDestino.Pais}) cadastrada com sucesso!";
             ModelState.Clear();
             CidadeDestino = new CidadeDestino();
             return Page();
