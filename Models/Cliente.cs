@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgenciaTurismo.Models
@@ -12,5 +13,7 @@ namespace AgenciaTurismo.Models
 
         [EmailAddress(ErrorMessage = "E-mail inválido.")]
         public string Email { get; set; }
+
+        public List<Reserva> Reservas { get; set; }
     }
 }

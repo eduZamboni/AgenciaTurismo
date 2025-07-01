@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AgenciaTurismo.Models;
 using System;
+using System.Collections.Generic;
 
 namespace AgenciaTurismo.Pages
 {
@@ -23,7 +24,7 @@ namespace AgenciaTurismo.Pages
             {
                 Titulo = "Pacote Teste",
                 CapacidadeMaxima = CapacidadeMaxima,
-                ReservasAtuais = 0
+                Reservas = new List<Reserva>()
             };
 
             // Assina o evento para logar no console e exibir na página
