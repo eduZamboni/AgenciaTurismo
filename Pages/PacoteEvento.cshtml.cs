@@ -14,7 +14,7 @@ namespace AgenciaTurismo.Pages
         [BindProperty]
         public int ReservasParaAdicionar { get; set; } = 1;
 
-        public string Log { get; set; }
+        public string Log { get; set; } = string.Empty;
 
         public void OnGet() { }
 

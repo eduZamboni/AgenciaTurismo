@@ -7,25 +7,25 @@ namespace AgenciaTurismo.Pages
     public class ViewNotesModel : PageModel
     {
         [BindProperty]
-        public string NoteTitle { get; set; }
+        public string NoteTitle { get; set; } = string.Empty;
         [BindProperty]
-        public string NoteContent { get; set; }
-        public List<string> Notes { get; set; } = new();
-        public string SelectedNoteContent { get; set; }
-        public string SelectedNote { get; set; }
-        public string Mensagem { get; set; }
+        public string NoteContent { get; set; } = string.Empty;
+        public List<string?> Notes { get; set; } = new();
+        public string SelectedNoteContent { get; set; } = string.Empty;
+        public string SelectedNote { get; set; } = string.Empty;
+        public string Mensagem { get; set; } = string.Empty;
 
         private string FilesDir =>
             Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files");
 
-        public void OnGet(string note = null)
+        public void OnGet(string note = "")
         {
             if (!Directory.Exists(FilesDir))
                 Directory.CreateDirectory(FilesDir);
 
             Notes = Directory.GetFiles(FilesDir, "*.txt")
                 .Select(Path.GetFileName)
-                .ToList();
+                .ToList() ?? new List<string>();
 
             if (!string.IsNullOrEmpty(note))
             {

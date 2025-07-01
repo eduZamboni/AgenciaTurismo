@@ -9,7 +9,7 @@ namespace AgenciaTurismo.Models
         public int Id { get; set; }
 
         [Required]
-        public string Titulo { get; set; }
+        public string Titulo { get; set; } = string.Empty;
 
         public DateTime DataInicio { get; set; }
 
@@ -17,11 +17,11 @@ namespace AgenciaTurismo.Models
 
         public decimal Preco { get; set; }
 
-        public List<PacoteTuristicoDestino> PacoteTuristicoDestinos { get; set; }
-        public List<Reserva> Reservas { get; set; }
+        public List<PacoteTuristicoDestino> PacoteTuristicoDestinos { get; set; } = new List<PacoteTuristicoDestino>();
+        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
 
         // Evento para quando a capacidade é atingida
-        public event Action<string> CapacityReached;
+        public event Action<string>? CapacityReached;
 
         public void AdicionarReserva()
         {

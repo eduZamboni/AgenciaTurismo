@@ -14,6 +14,7 @@ namespace AgenciaTurismo.Models
         public DbSet<PacoteTuristico> PacotesTuristicos { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
         public DbSet<PacoteTuristicoDestino> PacoteTuristicoDestinos { get; set; }
+        public DbSet<CidadeDestino> CidadesDestino { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

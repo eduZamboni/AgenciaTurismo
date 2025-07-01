@@ -1,27 +1,36 @@
+using AgenciaTurismo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AgenciaTurismo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgenciaTurismo.Pages
 {
     public class ClienteDetailsModel : PageModel
     {
-        public Cliente Cliente { get; set; }
+        public Cliente Cliente { get; set; } = new Cliente();
 
-        public IActionResult OnGet(int id)
+        private readonly AgenciaTurismoContext _context;
+
+        public ClienteDetailsModel(AgenciaTurismoContext context)
         {
-            // Simulação: normalmente buscaria do banco de dados
-            var clientesFake = new List<Cliente>
+            _context = context;
+        }
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
             {
-                new Cliente { Id = 1, Nome = "João Silva", Email = "joao@email.com" },
-                new Cliente { Id = 2, Nome = "Maria Souza", Email = "maria@email.com" }
-            };
-
-            Cliente = clientesFake.FirstOrDefault(c => c.Id == id);
-
-            if (Cliente == null)
                 return NotFound();
+            }
 
+            var cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            Cliente = cliente;
             return Page();
         }
     }

@@ -1,34 +1,34 @@
+using AgenciaTurismo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages
 {
     public class CreateClienteModel : PageModel
     {
-        [BindProperty]
-        public Cliente Cliente { get; set; }
+        private readonly AgenciaTurismoContext _context;
+        public Cliente Cliente { get; set; } = new Cliente();
+        [TempData]
+        public string Mensagem { get; set; } = string.Empty;
 
-        public string Mensagem { get; set; }
-
-        public void OnGet()
+        public CreateClienteModel(AgenciaTurismoContext context)
         {
-            Cliente = new Cliente();
+            _context = context;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                Mensagem = "Por favor, corrija os erros abaixo.";
                 return Page();
             }
 
-            // Aqui você pode salvar o cliente no banco de dados futuramente
-            Mensagem = $"Cliente '{Cliente.Nome}' cadastrado com sucesso!";
-            ModelState.Clear();
-            Cliente = new Cliente();
-            return Page();
+            _context.Clientes.Add(Cliente);
+            await _context.SaveChangesAsync();
+
+            Mensagem = "Cliente cadastrado com sucesso!";
+
+            return RedirectToPage("/Index");
         }
     }
 }

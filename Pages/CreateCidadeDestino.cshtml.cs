@@ -1,33 +1,35 @@
+using AgenciaTurismo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages
 {
     public class CreateCidadeDestinoModel : PageModel
     {
+        private readonly AgenciaTurismoContext _context;
         [BindProperty]
-        public CidadeDestino CidadeDestino { get; set; }
+        public CidadeDestino CidadeDestino { get; set; } = new CidadeDestino();
+        [TempData]
+        public string Mensagem { get; set; } = string.Empty;
 
-        public string Mensagem { get; set; }
-
-        public void OnGet()
+        public CreateCidadeDestinoModel(AgenciaTurismoContext context)
         {
-            CidadeDestino = new CidadeDestino();
+            _context = context;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                Mensagem = "Por favor, corrija os erros abaixo.";
                 return Page();
             }
 
-            Mensagem = $"Cidade '{CidadeDestino.Nome}' ({CidadeDestino.Pais}) cadastrada com sucesso!";
-            ModelState.Clear();
-            CidadeDestino = new CidadeDestino();
-            return Page();
+            _context.CidadesDestino.Add(CidadeDestino);
+            await _context.SaveChangesAsync();
+
+            Mensagem = "Cidade de destino cadastrada com sucesso!";
+
+            return RedirectToPage("/Index");
         }
     }
 } 
