@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages.Clientes
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly AgenciaTurismo.Models.AgenciaTurismoContext _context;
@@ -29,7 +31,7 @@ namespace AgenciaTurismo.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente =  await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id);
+            var cliente =  await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id && !m.IsDeleted);
             if (cliente == null)
             {
                 return NotFound();
@@ -70,7 +72,7 @@ namespace AgenciaTurismo.Pages.Clientes
 
         private bool ClienteExists(int id)
         {
-            return _context.Clientes.Any(e => e.Id == id);
+            return _context.Clientes.Any(e => e.Id == id && !e.IsDeleted);
         }
     }
 }

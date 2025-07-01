@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages.Clientes
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly AgenciaTurismo.Models.AgenciaTurismoContext _context;
@@ -22,7 +24,8 @@ namespace AgenciaTurismo.Pages.Clientes
 
         public async Task OnGetAsync()
         {
-            Cliente = await _context.Clientes.ToListAsync();
+            // Filtrar apenas clientes não deletados
+            Cliente = await _context.Clientes.Where(c => !c.IsDeleted).ToListAsync();
         }
     }
 }

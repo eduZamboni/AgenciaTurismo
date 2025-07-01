@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages.Clientes
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly AgenciaTurismo.Models.AgenciaTurismoContext _context;

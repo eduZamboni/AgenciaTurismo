@@ -15,8 +15,13 @@ namespace AgenciaTurismo.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} tem formato inválido")]
         public string Email { get; set; } = string.Empty;
+        
+        // Campo para exclusão lógica
+        public bool IsDeleted { get; set; } = false;
+        
+        // Data da exclusão lógica
+        public DateTime? DeletedAt { get; set; }
+        
         public ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
-
-
     }
 }

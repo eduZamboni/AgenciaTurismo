@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using AgenciaTurismo.Models;
 
 namespace AgenciaTurismo.Pages.Clientes
 {
+    [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly AgenciaTurismo.Models.AgenciaTurismoContext _context;
@@ -28,7 +30,7 @@ namespace AgenciaTurismo.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id);
+            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id && !m.IsDeleted);
 
             if (cliente is not null)
             {
@@ -50,8 +52,10 @@ namespace AgenciaTurismo.Pages.Clientes
             var cliente = await _context.Clientes.FindAsync(id);
             if (cliente != null)
             {
-                Cliente = cliente;
-                _context.Clientes.Remove(Cliente);
+                // Exclusão lógica em vez de física
+                cliente.IsDeleted = true;
+                cliente.DeletedAt = DateTime.UtcNow;
+                
                 await _context.SaveChangesAsync();
             }
 
